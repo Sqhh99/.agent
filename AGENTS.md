@@ -30,7 +30,7 @@ C++ 地图：[skills/cpp/cpp-engineering/references/v2-map.md](skills/cpp/cpp-en
 4. 测试必须用框架（默认 GoogleTest）。新文件名 `test_*.cpp`，放在 `tests/unit|integration|benchmark/`。
 5. 叙事归档：`docs/note|fix|feat|perf|refactor`，命名 `{YYYYMMDDHHmmss}-{标题}.md`。长期决策另写 `docs/adr/`。不是每个 commit 都归档。
 6. 没跑过的编译/测试/硬件，不得写成通过。CRITICAL/HIGH 未清不得宣称完成。
-7. 合入走分支 + PR，禁止直推 `main`（见 `skills/github/git-workflow`）。
+7. 合入走分支 + PR，禁止直推 `main`（见 `skills/github/git-workflow`）。Actions 见 `github-actions`；他人仓见 `github-oss-guard`。
 8. **Skill 反哺**：用本包 skill 做项目时，若因 skill 设计不清、过时、冲突或遗漏导致错误、构建失败、错误默认值或可预见风险，必须在同一次工作里修复并更新对应 `SKILL.md` / 模板（必要时加 `docs/fix`），再推回本仓。不要只在产品仓打补丁、留下错误的 skill。
 
 ## When adding a skill

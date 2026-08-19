@@ -1,0 +1,33 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    runs-on: windows-2022
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Release build
+        run: .\build.cmd release
+
+      - name: Checksum
+        shell: bash
+        run: |
+          mkdir -p dist
+          # copy packaged artifacts into dist/ first
+          (cd dist && sha256sum * > SHA256SUMS) || true
+
+      - name: GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: dist/**

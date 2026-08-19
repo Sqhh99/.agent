@@ -35,7 +35,8 @@ license: MIT
 ## PR
 
 - 看整段：`git diff <base>...HEAD`。
-- 描述 What / Why / How / 怎么测。CI 绿、冲突已解再请审。
+- 描述 What / Why / How / 怎么测。模板见 `github-templates`。CI 绿、冲突已解再请审。
+- 他人开源仓还要遵守 `github-oss-guard`。
 
 ## 记录什么
 

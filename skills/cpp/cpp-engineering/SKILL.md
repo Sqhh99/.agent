@@ -33,7 +33,7 @@ license: MIT
 5. **设计接口再实现**：公开 API 先定契约（所有权、错误、线程、单位），再写代码。
 6. **落地后必须真跑**：configure → build → 相关测试 → 静态检查/format → 看 diff。完成：每步有真实命令输出。
 7. **评审挡板**：按 `cpp-debug-and-quality` 的严重度扫一遍触及的 C++。有 CRITICAL/HIGH 不得宣称完成、不得合入。
-8. **收尾**：按 `git-workflow` 分支/提交；需要发布再走 `cpp-ci-release`。
+8. **收尾**：按 `git-workflow` 分支/提交；Actions 走 `github-actions`；C++ 门禁见 `cpp-ci-release`。他人仓遵守 `github-oss-guard`。
 
 ## Verification Contract
 

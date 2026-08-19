@@ -1,0 +1,41 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-2022
+            # add linux/macos rows only if the project actually ships them
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build and test (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          .\build.cmd release
+          .\build.cmd tests
+
+      - name: Build and test (Unix)
+        if: runner.os != 'Windows'
+        run: |
+          ./build.sh release
+          ./build.sh tests
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: build-${{ runner.os }}
+          path: build/
+          if-no-files-found: ignore

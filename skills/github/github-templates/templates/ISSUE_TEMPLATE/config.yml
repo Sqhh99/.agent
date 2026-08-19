@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 使用疑问
+    url: https://github.com/OWNER/REPO/discussions
+    about: 安装和使用问题请先到 Discussions。
+  - name: 功能想法
+    url: https://github.com/OWNER/REPO/discussions
+    about: 还没想清的建议先发 Discussions。
+  - name: 安全漏洞
+    url: https://github.com/OWNER/REPO/security/advisories/new
+    about: 走私密 Advisory，不要公开描述细节。
