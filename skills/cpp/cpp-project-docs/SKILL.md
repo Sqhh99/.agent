@@ -24,7 +24,7 @@ license: MIT
 | `docs/feat/` | 新功能说明 |
 | `docs/perf/` | **有成效**的性能优化 |
 | `docs/refactor/` | 较大架构或目录调整 |
-| `docs/adr/` | 长期决策（见 `cpp-git-workflow`） |
+| `docs/adr/` | 长期决策（见 `git-workflow`） |
 
 ## 命名
 

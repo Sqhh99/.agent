@@ -10,6 +10,7 @@ C++ 任务先读 [`skills/cpp/cpp-engineering`](skills/cpp/cpp-engineering/SKILL
 skills/
   cpp/     C++ 工程（构建、测试、文档、设备）
   qt/      Qt 上位机（CMake、三种界面、线程）
+  github/  Git / PR / 分支
   # 其他领域以后加在这里
 ```
 
@@ -29,7 +30,6 @@ skills/
 - `cpp-testing-contract` — `test_` 前缀；unit/integration/benchmark；必须 GTest
 - `cpp-project-docs` — docs/note·fix·feat·perf·refactor，与 ADR 并存
 - `cpp-debug-and-quality` — format 无辩论；CRITICAL/HIGH 挡合入
-- `cpp-git-workflow` — GitHub Flow、rebase 红线、三点 diff、ADR
 - `cpp-ci-release` — PR 门禁与 tag 发布
 
 ### 领域（cpp）
@@ -43,3 +43,7 @@ skills/
 - `qt-ui` — .ui / 纯 Widgets / QML
 
 模板在 `skills/cpp/cpp-engineering/templates/`。
+
+## skills/github/
+
+- `git-workflow` — GitHub Flow、rebase 红线、三点 diff、ADR

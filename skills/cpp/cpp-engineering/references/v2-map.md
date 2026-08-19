@@ -13,9 +13,7 @@
 | cpp-testing-contract | `test_` 前缀；unit/integration/benchmark；GTest |
 | cpp-project-docs | docs/note·fix·feat·perf·refactor |
 | cpp-debug-and-quality | format；CRITICAL/HIGH |
-| cpp-git-workflow | GitHub Flow；ADR + 叙事归档分流 |
+| git-workflow | GitHub Flow；ADR + 叙事归档分流（`skills/github/`） |
 | cpp-ci-release | PR CI 与 tag 发布 |
 | cpp-qt-application | Qt 线程 |
 | cpp-device-io | 协议、DMA |
-
-Qt 目录：`skills/qt/`（qt-engineering / qt-build / qt-ui）。

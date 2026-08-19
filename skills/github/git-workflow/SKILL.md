@@ -1,14 +1,14 @@
 ---
-name: cpp-git-workflow
-description: "Use when C++ git：分支 PR、ADR、禁直推 main。"
-version: 2.2.0
+name: git-workflow
+description: "Use when git: branches, PRs, ADR, no direct main."
+version: 2.3.0
 author: Sqhh99
 license: MIT
 ---
 
-# C++ Git 工作流
+# Git 工作流
 
-GitHub PR 保存代码史。默认 **GitHub Flow**。叙事归档走 `cpp-project-docs`，不要每个 PR 抄一份 note。
+从 C++ 包迁到 `skills/github/`。GitHub PR 保存代码史。默认 **GitHub Flow**。叙事归档走 `cpp-project-docs`，不要每个 PR 抄一份 note。
 
 ## When to Use
 
@@ -41,7 +41,7 @@ GitHub PR 保存代码史。默认 **GitHub Flow**。叙事归档走 `cpp-projec
 
 - **PR**：具体 diff。
 - **CHANGELOG**：用户可见变化（有发布时）。
-- **ADR**（`docs/adr/`）：长期决策。模板：`cpp-engineering/templates/ADR.md`。
+- **ADR**（`docs/adr/`）：长期决策。模板：`skills/cpp/cpp-engineering/templates/ADR.md`。
 - **叙事**：`docs/note|fix|feat|perf|refactor`，规则与命名见 `cpp-project-docs`。两类并存。
 
 ## Verification
