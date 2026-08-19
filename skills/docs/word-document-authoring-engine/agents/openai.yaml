@@ -1,0 +1,4 @@
+name: Word 文档编写工程
+short_description: 编写并逐页验收项目建议书、技术方案和研究型 Word 文档
+default_prompt: >-
+  使用 Word Document Authoring Engine 完成本任务。先锁定需求与范围，必要时检索论文、标准和官方资料补缺；按问题驱动逻辑组织正文，加入必要设备、算法、公式、图示、实施与验证；表格保持低密度，图题放在图片下方；生成 DOCX 后逐页渲染检查并循环修复，只交付最终成品。

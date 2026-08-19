@@ -11,6 +11,7 @@ skills/
   cpp/     C++ 工程（构建、测试、文档、设备）
   qt/      Qt 上位机（CMake、三种界面、线程）
   github/  Git / PR / Actions / 模板
+  docs/    正式 Word / 技术方案文档
   # 其他领域以后加在这里
 ```
 
@@ -50,3 +51,7 @@ skills/
 - `github-actions` — build.yml / release.yml、权限、matrix
 - `github-templates` — PR + Issue 模板
 - `github-oss-guard` — 他人仓禁止代开 PR / 代评 / 代推
+
+## skills/docs/
+
+- `word-document-authoring-engine` — 正式 Word：建议书 / 技术方案 / 设计报告
