@@ -1,14 +1,14 @@
 ---
 name: cpp-modern-cpp
 description: "Use when writing C++ APIs, ownership, or lifetimes."
-version: 2.0.0
+version: 2.1.0
 author: Sqhh99
 license: MIT
 ---
 
 # 现代 C++ 底座
 
-比「证明符合七大原则」更优先的是资源安全和所有权。面向 C++17/20 工程代码。
+比「证明符合七大原则」更优先的是资源安全和所有权。面向 C++17/20 工程代码。更深的编号规则见 `references/core-guidelines-digest.md`（按需读，不要每轮整篇加载）。
 
 ## When to Use
 
@@ -27,15 +27,25 @@ license: MIT
 - `noexcept` 只标真正不会抛的；移动操作尽量 `noexcept`。
 - 公开头文件保持 ABI/API 稳定：不在公开头里暴露可变布局，除非 major 版本允许。
 
-## 禁止
+## 安全黑名单
 
-- new/delete 散落（应用封装进 RAII）
+- 禁止 `strcpy` / `strcat` / `sprintf` / `gets`；用 `std::string` 或有界 API。
+- 禁止散落 `malloc`/`free` 和裸 `new`/`delete`。
+- 禁止默认依赖编译器 padding 的协议结构体；需要打包时显式写，并配测试。
+- `reinterpret_cast` 仅用于已文档化的设备/协议边界，并说明对齐。
+- 不要把 packed 线缓冲直接当本地对象用。
+- 整数来自不可信输入时检查溢出/截断。
+
+## 禁止（风格）
+
 - 把 `shared_ptr` 当默认指针
 - 返回指向局部的指针/引用
 - 静默忽略 `nodiscard` 错误码
+- 头文件 `using namespace std;`
 
 ## Verification
 
 - [ ] 每个获取的资源有明确释放点（对象析构）
-- [ ] 公开函数的所有权（谁释放、谁保活）能从签名读出
+- [ ] 公开函数的所有权能从签名读出
 - [ ] 无 owning raw pointer 跨越模块边界
+- [ ] 无黑名单中的 C 字符串/分配 API
