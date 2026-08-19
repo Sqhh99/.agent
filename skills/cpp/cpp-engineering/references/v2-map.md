@@ -14,6 +14,6 @@
 | cpp-project-docs | docs/note·fix·feat·perf·refactor |
 | cpp-debug-and-quality | format；CRITICAL/HIGH |
 | git-workflow | GitHub Flow；ADR + 叙事归档分流（`skills/github/`） |
-| cpp-ci-release | PR CI 与 tag 发布 |
+| cpp-ci-release | C++ 检查清单；YAML 见 github-actions |
 | cpp-qt-application | Qt 线程 |
 | cpp-device-io | 协议、DMA |
