@@ -7,7 +7,7 @@
 | cpp-engineering | 工作流、先搜再写、计划步骤、真实性、评审挡板 |
 | cpp-project-layout | 目录与模块边界 |
 | cpp-build-system | build.cmd/sh、preset、vcpkg/Fetch/CI |
-| cpp-dependency-management | 依赖决策树 |
+| cpp-dependency-management | vcpkg 编库；Fetch 拉预编译 Release |
 | cpp-modern-cpp | RAII / 所有权 / 安全黑名单 |
 | cpp-design-and-comments | 契约注释 |
 | cpp-testing-contract | `test_` 前缀；unit/integration/benchmark；GTest |

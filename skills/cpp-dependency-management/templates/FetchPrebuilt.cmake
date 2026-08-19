@@ -1,0 +1,47 @@
+# Fetch<Name>.cmake — download a prebuilt GitHub Release, do not build from source.
+# Copy and replace NAME / VERSION / URL / archive layout.
+
+if(NOT DEFINED NAME_SDK_VERSION)
+    set(NAME_SDK_VERSION "1.0.0")
+endif()
+if(NOT DEFINED NAME_SDK_ARCH)
+    set(NAME_SDK_ARCH "x64")
+endif()
+
+if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
+    set(_plat "win")
+    set(_ext "zip")
+elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    set(_plat "linux")
+    set(_ext "tgz")
+elseif(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+    set(_plat "osx")
+    set(_ext "tgz")
+else()
+    message(FATAL_ERROR "Unsupported platform: ${CMAKE_SYSTEM_NAME}")
+endif()
+
+set(_pkg "name-${_plat}-${NAME_SDK_ARCH}-${NAME_SDK_VERSION}")
+set(_root "${CMAKE_SOURCE_DIR}/third_party/${_pkg}")
+set(_url "https://github.com/ORG/REPO/releases/download/v${NAME_SDK_VERSION}/${_pkg}.${_ext}")
+set(_archive "${CMAKE_SOURCE_DIR}/third_party/${_pkg}.${_ext}")
+
+if(NOT EXISTS "${_root}/include" OR NOT EXISTS "${_root}/lib")
+    message(STATUS "Downloading prebuilt ${_pkg}")
+    file(DOWNLOAD "${_url}" "${_archive}" SHOW_PROGRESS STATUS _st)
+    list(GET _st 0 _code)
+    list(GET _st 1 _msg)
+    if(NOT _code EQUAL 0)
+        file(REMOVE "${_archive}")
+        message(FATAL_ERROR "Download failed: ${_msg}")
+    endif()
+    file(ARCHIVE_EXTRACT INPUT "${_archive}" DESTINATION "${CMAKE_SOURCE_DIR}/third_party")
+    file(REMOVE "${_archive}")
+endif()
+
+if(NOT EXISTS "${_root}/include" OR NOT EXISTS "${_root}/lib")
+    message(FATAL_ERROR "Prebuilt layout missing include/ or lib/ under ${_root}")
+endif()
+
+set(NAME_SDK_INCLUDE_DIR "${_root}/include")
+set(NAME_SDK_LIB_DIR "${_root}/lib")

@@ -34,7 +34,7 @@ license: MIT
 ## 依赖与兜底
 
 1. `vcpkg.json` manifest（`templates/vcpkg.json`）
-2. 无端口或必须跟 commit：`cmake/Fetch<Name>.cmake`
+2. 大包/预编译 SDK：`cmake/Fetch<Name>.cmake` **只下载 Release 二进制**（见 `cpp-dependency-management`），禁止 FetchContent 编源码
 3. CI workflow 在干净机器上跑同一套 `build.cmd tests` / `build.sh tests`
 
 细节见 `cpp-dependency-management`。
