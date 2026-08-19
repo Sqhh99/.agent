@@ -16,7 +16,7 @@ license: MIT
 - 用户说「按我的 C++ 规范做」
 - Don't use for: 纯文档翻译、与本仓无关的脚本
 
-配套：`cpp-project-layout`、`cpp-build-system`、`cpp-dependency-management`、`cpp-modern-cpp`、`cpp-design-and-comments`、`cpp-testing-contract`、`cpp-project-docs`、`cpp-debug-and-quality`、`cpp-git-workflow`、`cpp-ci-release`；Qt 上位机再加 `cpp-qt-application`；设备/协议再加 `cpp-device-io`。
+配套：`cpp-project-layout`、`cpp-build-system`、`cpp-dependency-management`、`cpp-modern-cpp`、`cpp-design-and-comments`、`cpp-testing-contract`、`cpp-project-docs`、`cpp-debug-and-quality`、`cpp-git-workflow`、`cpp-ci-release`；Qt 上位机再加 `qt-engineering` / `qt-build` / `qt-ui`；设备/协议再加 `cpp-device-io`。
 
 ## Procedure
 

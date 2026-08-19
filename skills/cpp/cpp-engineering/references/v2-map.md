@@ -17,3 +17,5 @@
 | cpp-ci-release | PR CI 与 tag 发布 |
 | cpp-qt-application | Qt 线程 |
 | cpp-device-io | 协议、DMA |
+
+Qt 目录：`skills/qt/`（qt-engineering / qt-build / qt-ui）。

@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Sqhh99 的 agent skill 包。C++ 任务先读 [skills/cpp/cpp-engineering/SKILL.md](skills/cpp/cpp-engineering/SKILL.md)。
+Sqhh99 的 agent skill 包。C++ 任务先读 [skills/cpp/cpp-engineering/SKILL.md](skills/cpp/cpp-engineering/SKILL.md)。Qt 界面再读 [skills/qt/qt-engineering/SKILL.md](skills/qt/qt-engineering/SKILL.md)。
 
 `CLAUDE.md` 只指向本文件。改规则只改 `AGENTS.md` 或对应 `skills/<area>/*/SKILL.md`，不要在 `CLAUDE.md` 另写一套。
 
@@ -18,7 +18,7 @@ skills/<area>/<name>/     one category per area
   examples/               optional
 ```
 
-当前分类：`skills/cpp/`。新领域新建 `skills/<area>/`，不要把非 C++ skill 放进 `cpp/`。
+当前分类：`skills/cpp/`、`skills/qt/`。新领域新建 `skills/<area>/`，不要把非 C++ skill 放进 `cpp/`。
 
 C++ 地图：[skills/cpp/cpp-engineering/references/v2-map.md](skills/cpp/cpp-engineering/references/v2-map.md)
 

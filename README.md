@@ -8,8 +8,9 @@ C++ 任务先读 [`skills/cpp/cpp-engineering`](skills/cpp/cpp-engineering/SKILL
 
 ```
 skills/
-  cpp/     C++ 工程（构建、测试、文档、Qt、设备）
-  # 其他领域以后加在这里，不要塞进 cpp/
+  cpp/     C++ 工程（构建、测试、文档、设备）
+  qt/      Qt 上位机（CMake、三种界面、线程）
+  # 其他领域以后加在这里
 ```
 
 ## skills/cpp/
@@ -31,9 +32,14 @@ skills/
 - `cpp-git-workflow` — GitHub Flow、rebase 红线、三点 diff、ADR
 - `cpp-ci-release` — PR 门禁与 tag 发布
 
-### 领域
+### 领域（cpp）
 
-- `cpp-qt-application` — UI 线程与 worker
 - `cpp-device-io` — 协议、DMA、设备 I/O
+
+## skills/qt/
+
+- `qt-engineering` — 总控、线程、前后端、分层、控件 examples、模块文档
+- `qt-build` — 只认 CMake；5.14 / 6.8.3 / 6.10；Qt6 用 qt_add_qml_module
+- `qt-ui` — .ui / 纯 Widgets / QML
 
 模板在 `skills/cpp/cpp-engineering/templates/`。
