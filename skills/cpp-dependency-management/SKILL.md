@@ -1,35 +1,43 @@
 ---
 name: cpp-dependency-management
-description: "Use when C++ 第三方依赖：vcpkg、third_party、Fetch 脚本。"
-version: 1.0.0
+description: "Use when C++ 第三方依赖：stdlib、vcpkg、SDK、Fetch。"
+version: 2.0.0
 author: Sqhh99
 license: MIT
 ---
 
-# C++ 第三方依赖管理
+# C++ 第三方依赖
 
-小徐的 C++ 项目接入第三方库的标准做法。新依赖入库前加载。
+「vcpkg 太慢就改 Fetch」不成立。FetchContent 同样要编译。先决策树，再选工具。
 
-## 主路径：vcpkg
+## When to Use
 
-- 优先使用 **vcpkg manifest 模式** 管理第三方依赖（`vcpkg.json` 声明，不用 classic 全局模式）。
-- vcpkg 与下载的依赖放在项目 `third_party` 目录内，便于项目整体迁移与版本管理。
+- 加库、换版本、引入官方 SDK、整理 third_party
+- Don't use for: 只用标准库就能解决的改动
 
-## 兜底路径：Fetch*.cmake
+## 决策树（从上到下）
 
-满足以下任一情况，改用直接拉取构建：
+1. 项目里是否已有同一能力？复用。
+2. 标准库能否解决？用标准库。
+3. vcpkg 有端口且版本可接受 → **manifest 模式**（`vcpkg.json` + baseline）。
+4. 官方 CMake package / 预编译 SDK（CUDA、厂商驱动、Qt 官方包）。
+5. FetchContent / `cmake/Fetch<Name>.cmake`：无端口、或必须跟特定 commit。
+6. vendored `third_party/vendored/`：离线、补丁、或上游不适合包管理。
 
-- 目标库不在 vcpkg 仓库；
-- vcpkg 编译太久。
+## 目录
 
-做法：
+- 不要把「vcpkg 工具」和「安装结果」都叫 third_party。
+- 建议：`third_party/vendored/` 只放源码供应商库；`build/vcpkg_installed/` 不进 git。
+- vcpkg 本身：submodule、bootstrap、或 CI 预装，由项目 README 写死一种。
 
-1. 库在 GitHub 有开源仓库 → 直接下载源码构建。
-2. 在 `cmake` 目录新增 `Fetch<库名>.cmake`，例如 `FetchONNXRuntime.cmake`、`FetchFFmpeg.cmake`、`FetchWebRTC.cmake`。
-3. 下载的源码统一放 `third_party` 目录管理。
+## Manifest 要真用
 
-## 验收
+- `builtin-baseline`、版本约束、必要时 `overrides`。
+- triplet、overlay ports、binary cache 写进 README/CI，避免每人编译两小时。
+- 记录许可证与 ABI 约束。升级依赖是显式 PR，不是顺手。
 
-- [ ] vcpkg 场景：`vcpkg.json` 声明 + 依赖落 `third_party`
-- [ ] Fetch 场景：`cmake/Fetch*.cmake` 存在，源码在 `third_party`
-- [ ] 新机器 clone 后能按 README 完整复现依赖
+## Verification
+
+- [ ] 能指出走了决策树的哪一层，以及为什么不是上一层
+- [ ] 新机器按 README 能复现依赖
+- [ ] 未把编译产物提交进 git

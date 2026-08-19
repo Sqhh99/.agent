@@ -1,32 +1,42 @@
 ---
 name: cpp-ci-release
-description: "Use when C++ CI：build.yml PR 触发、release.yml tag 触发。"
-version: 1.0.0
+description: "Use when C++ CI：format、build、test、tag 发布。"
+version: 2.0.0
 author: Sqhh99
 license: MIT
 ---
 
-# C++ 项目 CI/CD 规范
+# C++ CI 与发布
 
-新开 C++ 项目必须配套的 GitHub Actions 工作流。
+PR CI ≠ Release CI。编译成功 ≠ 测试成功 ≠ 可发布。
 
-## 最少要求
+## When to Use
 
-新项目至少有两个 workflow：
+- 新仓库搭 Actions、改 matrix、做 tag 发布
+- Don't use for: 与构建发布无关的业务代码
 
-### build.yml
+## PR（`build.yml`）
 
-- **触发条件**：PR 提交或代码合入（`pull_request` + `push` 到 main）。
-- 内容：检出 → 配置 CMake → 构建 → 跑测试。
+触发：`pull_request` 与 `push` 到 main。建议流水线：
 
-### release.yml
+format → 静态检查（能自动化的）→ configure → build → unit → 有价值的 integration → 至少一条 sanitizer（Linux/Clang）
 
-- **触发条件**：提交 **tag**（`push: tags`）。
-- 内容：自动构建 → 打包 → 发布到 GitHub Releases。
-- 打包平台（Windows / macOS / Linux）按项目实际需求取舍，不盲目三平台全开。
+用 GitHub Actions **matrix** 铺 OS/编译器，不要复制多份 workflow。产物用 artifact 传递。
 
-## 验收
+## Release（`release.yml`）
 
-- [ ] `.github/workflows/build.yml` 存在，PR/merge 触发
-- [ ] `.github/workflows/release.yml` 存在，tag 触发
-- [ ] 打 tag 后能产出 release 包
+触发：`vX.Y.Z` tag（SemVer）。流水线：
+
+Release 构建 → 按项目打包（Win/Linux/mac，按需，不盲目三端）→ symbols → checksum → changelog → GitHub Release。需要签名再加，不默认伪造。
+
+## 命名
+
+- tag：`v1.2.3`
+- 包名带项目、版本、平台、构建类型
+- Debug 包不要当正式 Release 传
+
+## Verification
+
+- [ ] PR 能拦住格式/编译/测试失败
+- [ ] 打 tag 能产出带 checksum 的 Release
+- [ ] 没有把「只编过」写成「测过」

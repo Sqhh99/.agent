@@ -1,33 +1,45 @@
 ---
 name: cpp-project-layout
-description: "Use when C++ 项目结构：core 库、UI 解耦、examples、资源。"
-version: 1.0.0
+description: "Use when C++ 项目结构：apps、libs、include、tests。"
+version: 2.0.0
 author: Sqhh99
 license: MIT
 ---
 
-# C++ 工程结构规范
+# C++ 工程结构
 
-小徐的 C++ 项目（含 Qt/上位机/工具类）目录与分层约定。新项目、重构或代码评审时加载。
+小项目可以用 `core` + UI。变大后禁止把所有逻辑塞进一个巨大 `core`。
 
-## 分层架构
+## When to Use
 
-- **核心逻辑必须分层**。可复用的公共代码放 `core` 模块，独立编译成动态库或静态库，供上层模块链接。
-- **UI 与核心逻辑严格解耦**。除 UI 代码外，UI 相关代码禁止进入核心层。
-- 核心层对外只暴露稳定接口；需要公开的接口放到 `include` 目录。
+- 新仓库、拆模块、评审目录是否会变成大泥球
+- Don't use for: 只改一个已有文件且结构已稳定
 
-## 可执行程序
+## 默认分层
 
-- 不同类型/分组的可执行程序，放不同目录，各自维护独立 `CMakeLists.txt`，不要全塞进根 CMake。
-- 自定义图表或工具控件，必须在 `examples` 目录放一个**可运行示例程序**，并在对应 `CMakeLists.txt` 单独 `add_executable`。
+- **UI / apps 与领域逻辑解耦**。QWidget、窗口、绘图进 apps；领域库不依赖 GUI。
+- 可复用代码做成**独立库 target**（动态或静态），不要只在可执行文件里堆源文件。
+- 稳定公开接口放 `include/<project>/`。
+- 自定义控件/库必须在 `examples/` 有可运行示例，并单独 `add_executable`。
+- 资源统一 `resources/`（或历史目录 `resource/res`），不散落源码树。
+- 不同类型可执行文件分目录，各有 `CMakeLists.txt`。
 
-## 资源
+## 推荐骨架（按需裁剪）
 
-- 图片、图标、音频、视频等资源统一放 `resource/res` 目录，禁止散落在源码目录。
+```text
+CMakeLists.txt  CMakePresets.json  vcpkg.json
+.clang-format   .clang-tidy
+cmake/          apps/   libs/   include/
+tests/          examples/  tools/  docs/  resources/  third_party/
+```
 
-## 验收
+`libs/` 按领域切（protocol、device、algorithm、common），而不是一个无限长大的 `core/`。
 
-- [ ] `core` 可独立编译为库，UI 目录没有 core 的 UI 依赖
-- [ ] `include` 只含稳定公开接口
-- [ ] 每个自定义控件有 examples 可运行示例
-- [ ] 资源都在 `resource/res`
+已有仓若已是 `core/` 且还小：保持，不要为对齐模板而搬家。新模块优先新库目录。
+
+## Verification
+
+- [ ] GUI 头文件不进入领域库
+- [ ] 公开头在 `include/`
+- [ ] 每个可复用控件/库有 examples 可编可跑
+- [ ] 资源不在源码目录里散落

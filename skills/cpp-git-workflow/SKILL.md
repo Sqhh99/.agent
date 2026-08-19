@@ -1,33 +1,41 @@
 ---
 name: cpp-git-workflow
-description: "Use when C++ git：前缀 commit、分支 PR、禁直推 main。"
-version: 1.0.0
+description: "Use when C++ git：分支 PR、ADR、禁直推 main。"
+version: 2.0.0
 author: Sqhh99
 license: MIT
 ---
 
-# C++ 项目 git 规范
+# C++ Git 工作流
 
-小徐的 C++ 项目版本管理约定。提交、合入、归档都按这套来。
+GitHub PR 保存代码史。不要每个 PR 再抄一份 `docs/note`。
 
-## Commit 规范
+## When to Use
 
-- 信息用中文或英文均可；**必须包含标题 + 变更描述**，不能只写一行标题。
-- 标题必须带标准前缀：`feat`、`fix`、`refactor` 等（conventional commits 风格）。
+- 建分支、提交、开 PR、合入、打 tag、回顾历史
+- Don't use for: 本地一次性实验且用户说不提交
 
-## 分支与合入
+## Commit
 
-- 代码改动后**不允许直接提交 main**。
-- 正确流程：新建分支 → 提交 commit → 通过 **PR merge 进 main**。
+- 中英均可。必须有标题 + 正文（改了什么、为什么）。
+- 标题前缀：`feat` / `fix` / `refactor` / `docs` / `test` / `chore`。
 
-## PR 归档
+## 分支
 
-- 每个 PR 完成后，在 `docs/note` 目录归档记录。
-- 命名格式：`{年}{月}{日}{时}{分}{秒}-{标题}.md`，例如 `20260819120001-添加图表控件.md`。
-- 归档原则：**不删除**，留作历史。
+- **禁止直推 main**。分支 → commit → PR → merge。
+- 范围保持小；重构单独 PR。
 
-## 验收
+## 记录什么
 
-- [ ] commit 标题带 `feat:/fix:/refactor:` 前缀，且有描述体
-- [ ] 无直推 main 的记录
-- [ ] 每个 PR 在 `docs/note/` 有归档文件
+- **PR**：具体 diff。
+- **CHANGELOG**：用户可见变化（有发布时）。
+- **ADR**（`docs/adr/`）：对架构、接口、协议、依赖策略、兼容性有长期影响的决策。模板：上下文 / 决策 / 放弃的方案 / 后果。
+- **docs/design**：复杂模块设计。
+
+不归档「改了按钮颜色」这种机械笔记。
+
+## Verification
+
+- [ ] 不在 main 上直接提交功能
+- [ ] commit 有前缀和说明正文
+- [ ] 若改了长期决策，有 ADR，而不是一份流水账 note
