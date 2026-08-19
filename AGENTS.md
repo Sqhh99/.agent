@@ -1,26 +1,28 @@
 # AGENTS.md
 
-Sqhh99 的 C++ agent skill 包。接到 C++ 任务先读 [skills/cpp-engineering/SKILL.md](skills/cpp-engineering/SKILL.md)。
+Sqhh99 的 agent skill 包。C++ 任务先读 [skills/cpp/cpp-engineering/SKILL.md](skills/cpp/cpp-engineering/SKILL.md)。
 
-`CLAUDE.md` 只指向本文件。改规则只改 `AGENTS.md` 或对应 `skills/*/SKILL.md`，不要在 `CLAUDE.md` 另写一套。
+`CLAUDE.md` 只指向本文件。改规则只改 `AGENTS.md` 或对应 `skills/<area>/*/SKILL.md`，不要在 `CLAUDE.md` 另写一套。
 
 ## Layout
 
 ```
-AGENTS.md          standing orders (this file)
-CLAUDE.md          pointer to AGENTS.md (Claude Code)
-README.md          human index
-skills/<name>/
+AGENTS.md                 standing orders (this file)
+CLAUDE.md                 pointer to AGENTS.md (Claude Code)
+README.md                 human index
+skills/<area>/<name>/     one category per area
   SKILL.md
-  references/      optional
-  templates/       optional
-  scripts/         optional
-  examples/        optional
+  references/             optional
+  templates/              optional
+  scripts/                optional
+  examples/               optional
 ```
 
-地图：[skills/cpp-engineering/references/v2-map.md](skills/cpp-engineering/references/v2-map.md)
+当前分类：`skills/cpp/`。新领域新建 `skills/<area>/`，不要把非 C++ skill 放进 `cpp/`。
 
-## Standing orders
+C++ 地图：[skills/cpp/cpp-engineering/references/v2-map.md](skills/cpp/cpp-engineering/references/v2-map.md)
+
+## Standing orders (C++)
 
 1. 仓库里已有的规范优先于本包默认值。用户没要求重构就不要扩大 diff。
 2. 构建入口是 `build.cmd` / `build.sh`（按平台需要给）。Debug / Release 分目录。
@@ -32,6 +34,7 @@ skills/<name>/
 
 ## When adding a skill
 
+- 先选 `skills/<area>/`，再创建 `<name>/SKILL.md`。
 - `description` ≤ 60 字符，一句，以句号结尾，写清何时加载。
 - 不是每个 skill 都要凑齐 references/scripts/templates/examples；有模板或长细则再加。
-- 改完同步本仓 `skills/`；不要只改本机 `~/.hermes/skills/` 而不推。
+- 改完同步本仓；不要只改本机 `~/.hermes/skills/` 而不推。
