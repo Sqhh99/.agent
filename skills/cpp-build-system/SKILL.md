@@ -1,50 +1,46 @@
 ---
 name: cpp-build-system
 description: "Use when editing CMake, presets, or compiler flags."
-version: 2.0.0
+version: 2.2.0
 author: Sqhh99
 license: MIT
 ---
 
-# C++ 构建系统（CMake）
+# C++ 构建系统
 
-现代 CMake：target-based，不用全局污染。人和 CI 都走 preset。
+人的入口是 `build.cmd` / `build.sh`。CMake 保持 target-based。跨平台脚本按项目需要给，命令名两边对齐。
 
 ## When to Use
 
-- 新建/改 `CMakeLists.txt`、`CMakePresets.json`、警告、标准、安装导出
+- 新建/改 CMake、presets、vcpkg、CI 构建、仓库根部 build 脚本
 - Don't use for: 只改业务 `.cpp` 且构建已通
 
-## 规则
+## 入口脚本
 
-- Target-based：`target_sources`、`target_include_directories`、`target_compile_features`、`target_compile_definitions`、`target_link_libraries`。传播用 `PUBLIC` / `PRIVATE` / `INTERFACE`。
-- 禁止新代码使用 `include_directories`、`link_directories`、`add_definitions`。
-- C++ 标准用 `target_compile_features(... cxx_std_17)` 或项目统一 `CMAKE_CXX_STANDARD`（选定后不要悄悄升）。
-- 警告：`cmake/CompilerWarnings.cmake` 集中开；默认当错误处理新增 warning 需显式讨论。
-- 导出 `compile_commands.json`（clangd/tidy）。
-- 每个可交付库/可执行文件是独立 target；examples 各自 `add_executable`。
-- 安装/导出：库项目提供 `install` + CMake package；应用项目至少能 `cmake --install` 出运行包。
+- Windows 项目必须有 `build.cmd`。还要 Linux/mac 再给 `build.sh`，**命令名相同**。
+- 只做 Windows 就不要假装有 `.sh`。
+- Debug / Release 分目录，例如 `build/debug` 与 `build/release`（或 `build/ninja-debug`），禁止混编互踩。
+- 黄金样本：`FLiNG-Downloader/build.cmd`。模板：`templates/build.cmd`、`templates/build.sh`。
+- 命令矩阵见 `references/build-command-matrix.md`。至少实现：`debug` `release` `tests` `configure` `rebuild` `clean`。有基准再加 `benchmark`；应用可加 `run`。
 
-## Presets
+## CMake
 
-仓库应有 `CMakePresets.json`（可提交）。按需提供：
+- Target-based：`target_sources` / `target_include_directories` / `target_compile_features` / `target_compile_definitions` / `target_link_libraries`。`PUBLIC` / `PRIVATE` / `INTERFACE`。
+- 禁止新代码 `include_directories`、`link_directories`、`add_definitions`。
+- 标准用 `target_compile_features(... cxx_std_17)` 或统一 `CMAKE_CXX_STANDARD`，选定后不要悄悄升。
+- 警告集中在 `cmake/CompilerWarnings.cmake`；导出 `compile_commands.json`。
+- 仓库提交 `CMakePresets.json`。人与 CI：`cmake --preset` → `cmake --build --preset` → `ctest --preset`。脚本内部可以调 preset。
 
-- `windows-msvc-debug` / `windows-msvc-release`
-- `linux-gcc-debug` / `linux-gcc-release`
-- `linux-clang-asan`（质量门，见 `cpp-debug-and-quality`）
+## 依赖与兜底
 
-人与 CI 执行：
+1. `vcpkg.json` manifest（`templates/vcpkg.json`）
+2. 无端口或必须跟 commit：`cmake/Fetch<Name>.cmake`
+3. CI workflow 在干净机器上跑同一套 `build.cmd tests` / `build.sh tests`
 
-```text
-cmake --preset <name>
-cmake --build --preset <name>
-ctest --preset <name>
-```
-
-不要每次手拼一长串 `-DCMAKE_...`。
+细节见 `cpp-dependency-management`。
 
 ## Verification
 
+- [ ] 有与平台匹配的 build 脚本，debug/release 目录分离
+- [ ] `build.* tests` 能配置、编译并跑测试（有真实输出）
 - [ ] 无新增全局 include/link/define
-- [ ] `cmake --preset` 能配置，`cmake --build --preset` 能编过
-- [ ] 生成 `compile_commands.json`

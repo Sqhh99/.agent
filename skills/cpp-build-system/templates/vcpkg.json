@@ -1,0 +1,6 @@
+{
+  "name": "your-project",
+  "version-string": "0.1.0",
+  "builtin-baseline": "REPLACE_WITH_COMMIT",
+  "dependencies": []
+}

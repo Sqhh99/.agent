@@ -1,4 +1,4 @@
-// Minimal GoogleTest skeleton. Adapt names; do not copy as filler tests.
+// tests/unit/test_add.cpp
 #include <gtest/gtest.h>
 
 int Add(int a, int b);
